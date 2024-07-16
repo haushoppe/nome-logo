@@ -3,7 +3,7 @@
 1. Download and install [node.js](https://nodejs.org/)
 2. Use a shell and `cd` into this folder
 3. Run: `npm install`
-3. Run: `npm start`
+3. Run: `npm start`, this will start the development webserver and open a browser to http://localhost:8080/
 
 
 ### Used on-chain libs
