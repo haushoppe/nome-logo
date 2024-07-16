@@ -1,0 +1,11 @@
+{
+  "name": "webserver-with-proxy",
+  "version": "1.0.0",
+  "description": "Proxies all requests to the ord.io backend",
+  "scripts": {
+    "start": "http-server --proxy https://ordin-delta.vercel.app/ -o"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}

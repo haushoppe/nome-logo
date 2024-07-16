@@ -1,15 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>NōME Logo</title>
+
+  <!-- this is the p5.js library -->
+  <script src="/content/7e37766541506810ba6399c4b2735121f508bd9209df43dd200bf2316b014594i0"></script>
+  <style>
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
 
   </head>
   <body>
     <main>
     </main>
-    <script src="sketch.js"></script>
+
+    <script>
+
+      // this must be on-chain, too!
+      // upload the logo first, and change the ID here
+      var logoInscription = '/content/f6765f00e4e019bef3d7bcac974eb58b55fa5b1d9af7f7e1ea15415e7a96e94ai0'
+
+      var number_of_stars = 4000;
+      stars = []
+      var logo;
+
+      class Star {
+        constructor(x, y, z) {
+          this.x = x;
+          this.y = y;
+          this.z = z;
+          this.size = random(1.5,2);
+          this.offset = random(-5, 5);
+        }
+
+        display() {
+          stroke(255);
+          this.offset += 0.05;
+          strokeWeight(this.size);
+          point(this.x + 3*sin(this.offset), this.y + 3*cos(this.offset), this.z);
+        }
+      }
+
+      function setup() {
+        createCanvas(600, 600, WEBGL);
+        logo = loadImage(logoInscription);
+        var r = width / 3;
+        for(var i=0;i<number_of_stars;i++) {
+          var found = true;
+          var x,y,z;
+          while(found) {
+            var s = random(TWO_PI);
+            var t = random(TWO_PI);
+            x = r * cos(s) * sin(t);
+            y = r * sin(s) * sin(t);
+            z = r * cos(t);
+            if(y*y > random(160*160)){
+              found = false;
+            }
+          }
+          stars[i] = new Star(x, y, z);
+
+        }
+      }
+
+      function draw() {
+        background(0);
+        push();
+        rotateY(millis() / 4000);
+        for(var i=0;i<number_of_stars;i++) {
+          stars[i].display();
+        }
+        pop();
+        scale(1/4);
+        image(logo, -logo.width/2, -logo.height/2);
+      }
+
+    </script>
   </body>
 </html>
